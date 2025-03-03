@@ -1,22 +1,54 @@
 import unittest
-
 from htmlnode import HTMLNode
 
-class TestTextNode(unittest.TestCase):
-    def test_props_to_html_with_href(self):
-        node = HTMLNode("a", "Click me", None, {"href": "https://www.example.com"})
-        assert node.props_to_html() == ' href="https://www.example.com"' 
 
-    def test_props_to_html_with_no_props(self):
-        node = HTMLNode(None, None, None, None)
-        assert node.props_to_html() == ""
+class TestHTMLNode(unittest.TestCase):
+    def test_to_html_props(self):
+        node = HTMLNode(
+            "div",
+            "Hello, world!",
+            None,
+            {"class": "greeting", "href": "https://boot.dev"},
+        )
+        self.assertEqual(
+            node.props_to_html(),
+            ' class="greeting" href="https://boot.dev"',
+        )
 
-    def test_props_to_html_with_multiple_props(self):
-        node = HTMLNode("div", "Content", None, {"class": "container", "id": "main"})
-        result = node.props_to_html()
-        assert ' class="container"' in result
-        assert ' id="main"' in result
-        assert result.startswith(' ')
+    def test_values(self):
+        node = HTMLNode(
+            "div",
+            "I wish I could read",
+        )
+        self.assertEqual(
+            node.tag,
+            "div",
+        )
+        self.assertEqual(
+            node.value,
+            "I wish I could read",
+        )
+        self.assertEqual(
+            node.children,
+            None,
+        )
+        self.assertEqual(
+            node.props,
+            None,
+        )
+
+    def test_repr(self):
+        node = HTMLNode(
+            "p",
+            "What a strange world",
+            None,
+            {"class": "primary"},
+        )
+        self.assertEqual(
+            node.__repr__(),
+            "HTMLNode(p, What a strange world, children: None, {'class': 'primary'})",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
