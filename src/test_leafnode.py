@@ -38,9 +38,11 @@ class TestLeafNode(unittest.TestCase):
         )
         self.assertEqual(
             node.__repr__(),
-            "HTMLNode(p, What a strange world, children: None, {'class': 'primary'})",
+            "LeafNode(p, What a strange world, children: None, {'class': 'primary'})",
         )
-
+    def test_leaf_to_html_no_tag(self):
+        node = LeafNode(None, "Hello, world!")
+        self.assertEqual(node.to_html(), "Hello, world!")
 
 if __name__ == "__main__":
     unittest.main()
