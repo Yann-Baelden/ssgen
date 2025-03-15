@@ -14,3 +14,12 @@ def copy_files_recursive(source_dir_path, dest_dir_path):
             shutil.copy(from_path, dest_path)
         else:
             copy_files_recursive(from_path, dest_path)
+
+def extract_title(markdown):
+    blocks = markdown.split("\n")
+    for block in blocks:
+        if block.startswith("# "):
+            return block[2:].strip()
+        
+    raise Exception("No title found in the Markdown content.")
+    
